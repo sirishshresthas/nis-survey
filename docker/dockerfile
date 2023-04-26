@@ -1,0 +1,26 @@
+FROM rocker/tidyverse:4.2.3
+
+RUN apt-get -y update && \
+    apt-get -y install \
+    apt-utils \
+    git \
+    build-essential && \
+    apt-get -y update && \
+    apt-get -y upgrade && \
+    apt-get -y purge && \
+    apt-get clean all && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+COPY ./docker/rstudio-prefs.json /home/rstudio/.config/rstudio/
+
+## Install R Package
+RUN install2.r remotes \
+            markdown \
+            rmarkdown \
+            knitr \
+            config \
+            kableExtra \
+            jsonlite \
+            haven \
+            janitor \
+            && rm -rf /tmp/downloaded_packages

@@ -1,0 +1,13 @@
+version: "3.9"
+
+services: 
+  nis:
+    build:
+      context: .
+      dockerfile: ./docker/dockerfile
+    ports:
+      - "8788:8787"
+    environment:
+      PASSWORD: rstudio
+    volumes:
+      - ./:/home/rstudio/workspace
